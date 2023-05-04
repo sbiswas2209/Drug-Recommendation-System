@@ -9,7 +9,7 @@ async def getMedicineByNameService(medicineName: str):
         results = []
         res = tx.run(
             '''MATCH (d:Drug) 
-            WHERE d.name=$name
+            WHERE toLower(d.name)=toLower($name)
             MATCH (d)-[r:TREATS]->(m:MedicalCondition)<-[r1:TREATS]-(drug:Drug)
             WHERE d <> drug
             WITH d, m, drug, [x IN d.drugClasses WHERE x IN drug.drugClasses] AS commonClasses
@@ -22,10 +22,8 @@ async def getMedicineByNameService(medicineName: str):
     with driver.session() as session:
         try:
             result = session.execute_write(getMedicineByName, medicineName)
-            print(result)
         except Exception as e:
             print(f"An unhandled exception occurred: {e}")
-        print("Number of Results: ", len(result))
 
     driver.close()
     return (result["searchQuery"][0], list(result["result"]), result["medicalCondition"][0])
