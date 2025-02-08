@@ -24,7 +24,6 @@ const useStyles = makeStyles({
 
 function SearchResultTile(props) {
   const classes = useStyles();
-  console.log(props);
 
   return (
     <Card className={classes.card}>
