@@ -1,3 +1,3 @@
-fastapi==0.101.1
-neo4j==5.5.0
-python-dotenv==1.0.0
+fastapi==0.115.8
+neo4j==5.28.0
+python-dotenv==1.0.1
